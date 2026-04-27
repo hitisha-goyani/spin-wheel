@@ -1,0 +1,158 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  padding: 20px;
+}
+
+.arrow {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 40px;
+  z-index: 10;
+  filter: drop-shadow(0 0 6px rgba(255, 159, 67, 0.7));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50% { transform: translateX(-50%) translateY(-4px); }
+}
+
+.wheelWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas {
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  z-index: 2;
+  transition: filter 0.3s;
+}
+
+.canvas:hover {
+  filter: brightness(1.05);
+}
+
+.glowRing {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: transparent;
+  transition: all 0.4s;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glowHover {
+  border-color: rgba(77, 150, 255, 0.4);
+  box-shadow: 0 0 30px rgba(77, 150, 255, 0.2), inset 0 0 20px rgba(77, 150, 255, 0.1);
+}
+
+.glowActive {
+  border-color: rgba(199, 125, 255, 0.5);
+  box-shadow: 0 0 50px rgba(199, 125, 255, 0.3), inset 0 0 30px rgba(199, 125, 255, 0.1);
+  animation: pulseGlow 1s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 30px rgba(199, 125, 255, 0.3); }
+  50% { box-shadow: 0 0 60px rgba(199, 125, 255, 0.6), 0 0 80px rgba(77, 150, 255, 0.3); }
+}
+
+.emptyMsg {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.spinBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 48px;
+  border-radius: 60px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #000;
+  background: linear-gradient(135deg, #ffd93d, #ff9f43);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+  box-shadow: 0 4px 24px rgba(255, 159, 67, 0.4);
+  min-width: 200px;
+}
+
+.spinBtn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.spinBtn:hover::before {
+  opacity: 1;
+}
+
+.spinBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 159, 67, 0.6);
+}
+
+.spinBtn:active {
+  transform: translateY(0);
+}
+
+.spinBtn.disabled {
+  background: linear-gradient(135deg, #3a3a5c, #2a2a45);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.spinBtn.spinning {
+  background: linear-gradient(135deg, #c77dff, #4d96ff);
+  color: #fff;
+  cursor: not-allowed;
+  box-shadow: 0 4px 24px rgba(77, 150, 255, 0.4);
+}
+
+.btnSpinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 600px) {
+  .container { padding: 12px; gap: 16px; }
+  .spinBtn { padding: 13px 36px; font-size: 16px; }
+}
